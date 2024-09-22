@@ -1,9 +1,13 @@
 import React from 'react'
 import { CgProfile } from "react-icons/cg";
 import { FaBagShopping, FaFaceGrinHearts } from "react-icons/fa6";
+import { useSelector } from 'react-redux';
 import {Link} from 'react-router-dom';
 
 function Header() {
+
+
+    const bag = useSelector((store)=>store.bag);
     return (
 
         <header>
@@ -27,8 +31,8 @@ function Header() {
                 </a>
             </nav>
             <div className="search_bar">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button className="btn btn-outline-success" type="submit">Search</button>
             </div>
             <div className="action_bar ">
                 <div className="action_container">
@@ -42,7 +46,7 @@ function Header() {
                 <Link className="action_container" to="bags">
                     <FaBagShopping />
                     <span className="action_name">Bag</span>
-                    <span className="bag-item-count">0</span>
+                    <span className="bag-item-count">{bag.length}</span>
                 </Link>
             </div>
         </header>

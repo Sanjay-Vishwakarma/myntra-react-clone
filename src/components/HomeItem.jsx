@@ -1,23 +1,45 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { bagActions } from '../store/bagSlice';
+import { FaTrashAlt } from "react-icons/fa";
+import { IoMdAddCircle } from "react-icons/io";
 
 function HomeItem({ item }) {
+    const dispatch = useDispatch();
+
+    const bagItems = useSelector(store => store.bag);
+
+    const elementFound = bagItems.indexOf(item.id) >= 0;
+    console.log(item.id, elementFound);
+
+    const addHandleToBag = () => {
+        dispatch(bagActions.addToBag(item.id));
+    }
+
+    const handleRemoveFromBag = () => {
+        dispatch(bagActions.removeFromBag(item.id));
+
+    }
     return (
         <>
-            <div class="item-container">
-                <img class="item-image" src={item.image} alt="item image" />
-                <div class="rating">
+            <div className="item-container">
+                <img className="item-image" src={item.image} alt="item image" />
+                <div className="rating">
                     {item.rating.stars} ⭐ | {item.rating.count}
                 </div>
-                <div class="company-name">{item.company}</div>
-                <div class="item-name">{item.item_name}</div>
-                <div class="price">
-                    <span class="current-price">Rs {item.current_price}</span>
-                    <span class="original-price">Rs {item.original_price}</span>
-                    <span class="discount">({item.discount_percentage}% OFF)</span>
+                <div className="company-name">{item.company}</div>
+                <div className="item-name">{item.item_name}</div>
+                <div className="price">
+                    <span className="current-price">Rs {item.current_price}</span>
+                    <span className="original-price">Rs {item.original_price}</span>
+                    <span className="discount">({item.discount_percentage}% OFF)</span>
                 </div>
-                <button className="btn-add-bag" onclick={() => console.log("add to bag clicked...")} >
-                    Add to Bag
-                </button>
+                {elementFound ? <button type="button" class="btn btn-danger btn-add-bag" onClick={handleRemoveFromBag}>
+                    <span> <FaTrashAlt /> </span>Remove</button>
+                    :
+                    <button type="button" class="btn btn-success btn-add-bag" onClick={addHandleToBag}>
+                        <span> <IoMdAddCircle /> </span> Add To Bag</button>
+                }
 
             </div>
         </>

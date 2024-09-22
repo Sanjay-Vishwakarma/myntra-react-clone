@@ -5,6 +5,8 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Bags from './routes/Bags.jsx'
 import Home from './routes/Home.jsx';
+import {Provider} from 'react-redux';
+import myntraStore from './store/index.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -34,7 +36,9 @@ const router = createBrowserRouter(
 
 root.render(
   <React.StrictMode>
+    <Provider store = {myntraStore}>
     <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
